@@ -1,0 +1,676 @@
+basePath: /
+definitions:
+  domain.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  request.ChangePasswordRequest:
+    properties:
+      new_password:
+        minLength: 6
+        type: string
+      old_password:
+        minLength: 6
+        type: string
+    required:
+    - new_password
+    - old_password
+    type: object
+  request.UpdatePostRequest:
+    properties:
+      caption:
+        minLength: 1
+        type: string
+    required:
+    - caption
+    type: object
+  request.UpdateUserRequest:
+    properties:
+      username:
+        maxLength: 50
+        minLength: 3
+        type: string
+    required:
+    - username
+    type: object
+  request.UserLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  request.UserRegistrationRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  response.ChangePasswordData:
+    properties:
+      message:
+        type: string
+    type: object
+  response.CreatePostResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.Post'
+      status:
+        type: string
+    type: object
+  response.DeletePostResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.RegisterData'
+      status:
+        type: string
+    type: object
+  response.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+  response.GetAllPostsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/response.Post'
+        type: array
+      status:
+        type: string
+    type: object
+  response.GetAllUsersResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/response.User'
+        type: array
+      status:
+        type: string
+    type: object
+  response.GetCurrentUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.User'
+      status:
+        type: string
+    type: object
+  response.GetPostByIDResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.Post'
+      status:
+        type: string
+    type: object
+  response.GetUserByIDResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.User'
+      status:
+        type: string
+    type: object
+  response.LoginData:
+    properties:
+      token:
+        type: string
+    type: object
+  response.LoginResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.LoginData'
+      status:
+        type: string
+    type: object
+  response.Post:
+    properties:
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      image_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  response.RegisterData:
+    properties:
+      message:
+        type: string
+    type: object
+  response.RegisterResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.RegisterData'
+      status:
+        type: string
+    type: object
+  response.SearchPostsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/response.Post'
+        type: array
+      status:
+        type: string
+    type: object
+  response.UpdatePostResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.Post'
+      status:
+        type: string
+    type: object
+  response.UpdateUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/response.User'
+      status:
+        type: string
+    type: object
+  response.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+host: 178.128.61.145:8084
+info:
+  contact:
+    email: elginbrian49@student.ub.ac.id
+    name: Elgin Brian Wahyu Bramadhika
+    url: https://wa.me/6285749806571
+  description: This is a RESTful API for a simple social media application. It allows
+    users to manage their posts, including creating, updating, and deleting posts,
+    and provides authentication using JWT. The API is built using the Fiber framework
+    and interacts with a PostgreSQL database.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Starter API
+  version: "1.0"
+paths:
+  /api/auth/change-password:
+    put:
+      consumes:
+      - application/json
+      description: Update your password securely. You need to be logged in and provide
+        your old password along with the new one. Include your JWT token in the Authorization
+        header.
+      parameters:
+      - description: Change Password Request
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password changed successfully
+          schema:
+            $ref: '#/definitions/response.ChangePasswordData'
+        "400":
+          description: Validation error or invalid request format
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Change your password
+      tags:
+      - auth
+  /api/auth/current-user:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve details about the logged-in user. You must include your
+        JWT token in the Authorization header to access this information.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User information retrieved successfully
+          schema:
+            $ref: '#/definitions/response.GetCurrentUserResponse'
+        "401":
+          description: Unauthorized or invalid token
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get current user info
+      tags:
+      - auth
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Log in to your account by providing your email and password. If
+        the details are correct, you will receive a JWT token to use for secure access
+        to other endpoints.
+      parameters:
+      - description: User login details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successful registration response
+          schema:
+            $ref: '#/definitions/response.LoginResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Log in a user
+      tags:
+      - auth
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new account by providing a username, email, and password.
+        The system checks if the details are valid and returns a success message if
+        registration is successful.
+      parameters:
+      - description: User registration details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRegistrationRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successful registration response
+          schema:
+            $ref: '#/definitions/response.RegisterResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Register a new user
+      tags:
+      - auth
+  /api/posts:
+    get:
+      description: Get a list of all posts, along with details like the user who created
+        them, the caption, image URL, and timestamps.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful fetch posts response
+          schema:
+            $ref: '#/definitions/response.GetAllPostsResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get all posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new post with a caption. Optionally, you can upload an
+        image. If an image is uploaded, its URL will be returned in the response.
+        Requires JWT authentication.
+      parameters:
+      - description: Post caption
+        in: formData
+        name: caption
+        required: true
+        type: string
+      - description: Post image (optional)
+        in: formData
+        name: image
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successful image upload response
+          schema:
+            $ref: '#/definitions/response.CreatePostResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new post
+      tags:
+      - posts
+  /api/posts/{id}:
+    delete:
+      description: Delete a post by its ID. Only the post creator is allowed to delete
+        it. Requires JWT authentication.
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Successful delete post response
+          schema:
+            $ref: '#/definitions/response.DeletePostResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a post
+      tags:
+      - posts
+    get:
+      description: Get a post by its unique ID, including the caption, image URL,
+        and timestamps.
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful fetch post response
+          schema:
+            $ref: '#/definitions/response.GetPostByIDResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get a post by ID
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: Update only the caption of an existing post. Only the post creator
+        is allowed to make this change. Requires JWT authentication.
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request body with updated caption
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful update response
+          schema:
+            $ref: '#/definitions/response.UpdatePostResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update an existing post's caption
+      tags:
+      - posts
+  /api/posts/user/{user_id}:
+    get:
+      description: Get all posts made by a specific user, including the caption, image
+        URL, and timestamps.
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful fetch posts by user response
+          schema:
+            $ref: '#/definitions/response.GetAllPostsResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get all posts by a specific user
+      tags:
+      - posts
+  /api/search/posts:
+    get:
+      description: Search for posts that match a given query, such as a keyword in
+        the caption or content.
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful search response
+          schema:
+            items:
+              $ref: '#/definitions/response.SearchPostsResponse'
+            type: array
+        "400":
+          description: Invalid query parameter
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Search posts
+      tags:
+      - search
+  /api/search/users:
+    get:
+      description: Search for users by their name or email. The response includes
+        users matching the provided query.
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful search response
+          schema:
+            items:
+              $ref: '#/definitions/domain.UserResponse'
+            type: array
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Search users
+      tags:
+      - search
+  /api/users:
+    get:
+      description: Retrieve a list of all users from the database, including their
+        usernames, emails, and timestamps for when their accounts were created or
+        updated.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful fetch users response
+          schema:
+            $ref: '#/definitions/response.GetAllUsersResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get all users
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update the username of the authenticated user. The user must include
+        their JWT token in the Authorization header.
+      parameters:
+      - description: Request body with updated username
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful update user response
+          schema:
+            $ref: '#/definitions/response.UpdateUserResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized or invalid token
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user information
+      tags:
+      - users
+  /api/users/{id}:
+    get:
+      description: Retrieve the details of a specific user by their ID. The response
+        includes the user's username, email, and account timestamps.
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful fetch user by ID response
+          schema:
+            $ref: '#/definitions/response.GetUserByIDResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get user details by ID
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "8084:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgres://user:password@db:5432/fiber_starter?sslmode=disable
+    depends_on:
+      - db
+      - vp
+    networks:
+      - fiber-network
+    command: >
+      sh -c "/wait-for-it.sh db:5432 -- ./fiber-starter"
+    volumes:
+      - ./public/uploads:/app/public/uploads
+      - ./cmd:/app/cmd
+
+  vp:
+    build:
+      context: ./vitepress
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5173:5173"
+    networks:
+      - fiber-network
+    command: >
+      sh -c "npm run dev"
+    volumes:
+      - ./vitepress:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fiber_starter
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - fiber-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d fiber_starter"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  fiber-network:
+    driver: bridge
+
+volumes:
+  db_data:
