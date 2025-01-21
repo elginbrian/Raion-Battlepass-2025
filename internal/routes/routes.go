@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"fiber-starter/internal/handler"
-	"fiber-starter/internal/middleware"
+	"raion-battlepass/internal/handler"
+	"raion-battlepass/internal/middleware"
 
 	"github.com/gofiber/fiber/v2"
 	fiberSwagger "github.com/swaggo/fiber-swagger"

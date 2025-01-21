@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"errors"
-	"fiber-starter/internal/domain"
-	"fiber-starter/internal/repository"
+	"raion-battlepass/internal/domain"
+	"raion-battlepass/internal/repository"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"

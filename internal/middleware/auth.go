@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"fiber-starter/pkg/response"
 	"log"
+	"raion-battlepass/pkg/response"
 	"strings"
 	"time"
 

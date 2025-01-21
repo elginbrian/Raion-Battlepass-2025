@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fiber-starter/internal/domain"
-	"fiber-starter/internal/service"
-	"fiber-starter/pkg/request"
-	"fiber-starter/pkg/response"
 	"fmt"
+	"raion-battlepass/internal/domain"
+	"raion-battlepass/internal/service"
+	"raion-battlepass/pkg/request"
+	"raion-battlepass/pkg/response"
 
 	"github.com/gofiber/fiber/v2"
 )

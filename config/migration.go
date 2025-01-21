@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	migrations "fiber-starter/db/migrations"
+	migrations "raion-battlepass/db/migrations"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 )

@@ -1,9 +1,9 @@
 package di
 
 import (
-	"fiber-starter/internal/handler"
-	"fiber-starter/internal/repository"
-	"fiber-starter/internal/service"
+	"raion-battlepass/internal/handler"
+	"raion-battlepass/internal/repository"
+	"raion-battlepass/internal/service"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 )

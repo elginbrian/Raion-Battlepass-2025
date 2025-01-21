@@ -1,4 +1,4 @@
-module fiber-starter
+module raion-battlepass
 
 go 1.22.0
 

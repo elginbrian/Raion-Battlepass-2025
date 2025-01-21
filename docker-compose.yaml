@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     build: .
@@ -8,14 +6,14 @@ services:
       - "8084:8080"
     environment:
       - PORT=8080
-      - DATABASE_URL=postgres://user:password@db:5432/fiber_starter?sslmode=disable
+      - DATABASE_URL=postgres://user:password@db:5432/raion-battlepass?sslmode=disable
     depends_on:
       - db
       - vp
     networks:
-      - fiber-network
+      - raion-battlepass-network
     command: >
-      sh -c "/wait-for-it.sh db:5432 -- ./fiber-starter"
+      sh -c "./raion-battlepass"
     volumes:
       - ./public/uploads:/app/public/uploads
       - ./cmd:/app/cmd
@@ -28,7 +26,7 @@ services:
     ports:
       - "5173:5173"
     networks:
-      - fiber-network
+      - raion-battlepass-network
     command: >
       sh -c "npm run dev"
     volumes:
@@ -41,19 +39,19 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: fiber_starter
+      POSTGRES_DB: raion-battlepass
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
-      - fiber-network
+      - raion-battlepass-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d fiber_starter"]
+      test: ["CMD-SHELL", "pg_isready -U user -d raion-battlepass"]
       interval: 10s
       timeout: 5s
       retries: 5
 
 networks:
-  fiber-network:
+  raion-battlepass-network:
     driver: bridge
 
 volumes:

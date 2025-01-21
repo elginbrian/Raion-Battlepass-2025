@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"fiber-starter/internal/domain"
-	"fiber-starter/internal/repository"
+	"raion-battlepass/internal/domain"
+	"raion-battlepass/internal/repository"
 )
 
 type UserService interface {

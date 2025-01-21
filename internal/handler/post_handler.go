@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fiber-starter/internal/domain"
-	"fiber-starter/internal/service"
-	"fiber-starter/pkg/request"
-	"fiber-starter/pkg/response"
 	"os"
+	"raion-battlepass/internal/domain"
+	"raion-battlepass/internal/service"
+	"raion-battlepass/pkg/request"
+	"raion-battlepass/pkg/response"
 	"regexp"
 	"strings"
 
@@ -170,7 +170,7 @@ func (h *PostHandler) CreatePost(c *fiber.Ctx) error {
 			return response.Error(c, "Failed to save image", fiber.StatusInternalServerError)
 		}
 
-		imageURL = "http://localhost:8084" + "/uploads/" + sanitizedFileName
+		imageURL = "https://raion-battlepass.elginbrian.com" + "/uploads/" + sanitizedFileName
 	}
 
 	post := domain.Post{

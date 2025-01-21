@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"fiber-starter/internal/service"
-	"fiber-starter/pkg/request"
-	"fiber-starter/pkg/response"
+	"raion-battlepass/internal/service"
+	"raion-battlepass/pkg/request"
+	"raion-battlepass/pkg/response"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"

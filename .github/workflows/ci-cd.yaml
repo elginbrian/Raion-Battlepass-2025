@@ -13,17 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Go
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.22.0
 
-      # Step 3: Install dependencies and run tests
       - name: Install dependencies and run tests
         run: |
           go mod tidy
@@ -34,29 +31,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Build and push Docker image
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/fiber-starter:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/fiber-starter:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/raion-battlepass:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/raion-battlepass:latest
 
   deploy:
     needs: docker
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Deploy using SSH
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -65,10 +58,10 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd github/go-fiber-starter
+            cd github/Raion-Battlepass-2025
             git fetch origin
             git reset --hard origin/main
             go mod vendor
             docker image prune
-            docker-compose down -v
+            docker-compose down
             docker-compose up --build -d

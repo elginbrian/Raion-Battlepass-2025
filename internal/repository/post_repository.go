@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"fiber-starter/internal/domain"
 	"fmt"
+	"raion-battlepass/internal/domain"
 	"time"
 
 	"github.com/jackc/pgx/v4"
