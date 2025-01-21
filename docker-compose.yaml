@@ -27,8 +27,6 @@ services:
       - "5173:5173"
     networks:
       - raion-battlepass-network
-    command: >
-      sh -c "npm run dev"
     volumes:
       - ./vitepress:/app
       - /app/node_modules
