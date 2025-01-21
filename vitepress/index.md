@@ -3,14 +3,16 @@
 layout: home
 
 hero:
-  name: "Raion Battlepass 2025"
-  text: "It's time..."
-  tagline: My great project tagline
+  name: "RAION BATTLEPASS 2025 ⚔️"
+  tagline: Mobile Developer Division
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: API Documentation
+      link: https://raion-battlepass.elginbrian.com/docs
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Backend GitHub
+      link: https://github.com/elginbrian/Raion-Battlepass-2025
+    - theme: alt
+      text: Contact Person
+      link: https://wa.me/6285749806571
 ---

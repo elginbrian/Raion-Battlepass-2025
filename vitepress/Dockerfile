@@ -1,4 +1,3 @@
-# Stage 1: Build the Vitepress site
 FROM node:18-alpine AS build
 
 WORKDIR /app
@@ -9,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run docs:build
 
 FROM node:18-alpine
 
