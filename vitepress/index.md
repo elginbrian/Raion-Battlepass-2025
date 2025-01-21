@@ -9,10 +9,9 @@ hero:
     - theme: brand
       text: Dokumentasi API
       link: https://raion-battlepass.elginbrian.com/docs
-    - theme: alt
-      text: Contact Person
-      link: https://wa.me/6285749806571
 ---
+
+<br>
 
 # Sebelum Mulai, Ngobrol Dulu Yok!
 
@@ -20,7 +19,7 @@ Halo teman-teman developer muda! 👋 Selamat datang di Raion Community! Sebelum
 
 Yuk, kita cari tahu bareng apa itu **Raion Battlepass 2025** dan gimana cara ikutnya!
 
-## ⚖ KETENTUAN BATTLEPASS
+## ⚔ KETENTUAN BATTLEPASS
 
 Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penting **bisa jalan** dan sesuai dengan spesifikasi yang kita tentukan. Ini dia yang perlu kalian siapin:
 
@@ -101,14 +100,137 @@ Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penti
 
 ## 📲 TENTANG API
 
-API itu seperti jembatan yang bikin aplikasi kalian bisa berkomunikasi dengan server.  
-Dokumentasi API yang lebih lengkap bisa kalian lihat di sini:  
+API itu seperti jembatan yang bikin aplikasi kalian bisa berkomunikasi dengan server. Dokumentasi API yang lebih lengkap bisa kalian lihat di sini:
+
 [Dokumentasi API Raion Battlepass](https://raion-battlepass.elginbrian.com/docs)
+
+::: details Mengenal API lebih lanjut 📚
+
+### Apa Itu API?
+
+API (Application Programming Interface) adalah sebuah sistem yang memungkinkan dua aplikasi atau sistem untuk saling berkomunikasi. Coba bayangkan API seperti sebuah **jembatan** yang menghubungkan aplikasi yang kamu gunakan di handphone (frontend) dengan sistem yang ada di server (backend). Jadi, API adalah cara aplikasi untuk "ngobrol" dengan server untuk meminta atau mengirim data.
+
+Misalnya, ketika kamu membuka aplikasi sosial media, aplikasi tersebut akan meminta data (seperti postingan atau informasi pengguna) ke server melalui API, dan server akan memberikan jawabannya.
+
+### Bagaimana Cara Kerja API?
+
+1. **Frontend Mengirimkan Permintaan (Request)**:
+
+   - Aplikasi frontend (misalnya aplikasi di handphone) mengirimkan permintaan ke server melalui API. Permintaan ini bisa berisi data yang ingin kamu ambil (misalnya, daftar postingan) atau data yang ingin kamu kirimkan (misalnya, membuat postingan baru).
+   - Permintaan ini dilakukan menggunakan protokol yang disebut HTTP. Biasanya, ada berbagai jenis permintaan seperti `GET` (untuk mengambil data), `POST` (untuk mengirim data baru), `PUT` (untuk memperbarui data), dan `DELETE` (untuk menghapus data).
+
+2. **Backend Memproses Permintaan**:
+
+   - Server backend akan menerima permintaan tersebut dan memprosesnya.
+   - Jika kamu meminta data, server akan mengambilnya dari database dan mengirimkan jawabannya.
+   - Jika permintaan berisi data baru (misalnya, kamu membuat postingan baru), server akan menyimpan data tersebut di database.
+
+3. **Frontend Menerima Respons (Response)**:
+
+   - Setelah permintaan diproses, server akan mengirimkan respons yang berisi data yang kamu minta atau konfirmasi bahwa tindakan kamu (misalnya, membuat postingan baru) berhasil.
+   - Data yang dikirimkan biasanya dalam bentuk **JSON**, format yang mudah dibaca oleh aplikasi frontend.
+
+### Jenis-jenis API
+
+- **REST API**: API yang paling umum digunakan. API ini menggunakan URL untuk mengakses data dan biasanya menggunakan metode HTTP seperti `GET`, `POST`, `PUT`, dan `DELETE`.
+- **GraphQL**: API yang memungkinkan aplikasi untuk meminta hanya data yang dibutuhkan, jadi tidak ada data yang terbuang (over-fetching) atau data yang kurang (under-fetching).
+- **SOAP API**: API yang lebih kompleks dan biasanya digunakan dalam aplikasi yang lebih besar atau sistem lama.
+
+### Manfaat API
+
+- **Penghubung Antar Aplikasi**: API memungkinkan aplikasi yang berbeda, bahkan yang dibangun dengan teknologi yang berbeda, untuk saling berkomunikasi.
+- **Akses ke Data dan Layanan**: API memungkinkan aplikasi untuk mengakses data yang ada di server atau layanan eksternal, seperti data cuaca atau layanan pembayaran.
+- **Skalabilitas dan Modularitas**: Dengan API, aplikasi bisa dibangun dengan komponen yang terpisah dan saling berhubungan, sehingga lebih mudah untuk dikembangkan dan dikelola.
+
+### API dalam Aplikasi Mobile
+
+Dalam aplikasi mobile, API digunakan untuk menghubungkan aplikasi di handphone dengan server. Beberapa contoh penggunaan API dalam aplikasi mobile:
+
+- **Mengambil data**: Misalnya, aplikasi mengambil daftar postingan atau informasi pengguna.
+- **Mengirim data**: Misalnya, aplikasi mengirimkan data login atau membuat postingan baru.
+- **Autentikasi dan Otorisasi**: API juga digunakan untuk memverifikasi identitas pengguna, seperti saat login ke aplikasi.
+
+Jadi, meskipun aplikasi frontend (seperti di handphone) dan backend (seperti server) dibangun dengan teknologi yang berbeda, API membantu keduanya untuk berkomunikasi dengan cara yang seragam.
+
+:::
+
+::: details Contoh kode yang sudah kita disiapkan di backend ⚙
+
+Berikut adalah contoh kode di backend (menggunakan bahasa Go) yang menangani request untuk mengambil semua postingan (GetAllPosts). Function ini akan mengambil semua postingan dari database dan mengembalikannya dalam bentuk JSON.
+
+```Go
+func (h *PostHandler) GetAllPosts(c *fiber.Ctx) error {
+	posts, err := h.postService.FetchAllPosts()
+	if err != nil {
+		return response.Error(c, err.Error(), fiber.StatusInternalServerError)
+	}
+
+	var postResponse []domain.PostResponse
+	for _, post := range posts {
+		postResponse = append(postResponse, domain.PostResponse{
+			ID:        post.ID,
+			UserID:    post.UserID,
+			Caption:   post.Caption,
+			ImageURL:  post.ImageURL,
+			CreatedAt: post.CreatedAt.Format("2006-01-02 15:04:05"),
+			UpdatedAt: post.UpdatedAt.Format("2006-01-02 15:04:05"),
+		})
+	}
+
+	return response.Success(c, postResponse, fiber.StatusOK)
+}
+```
+
+Kode di atas akan menampilkan data dari endpoint API https://raion-battlepass.elginbrian.com/api/posts. Contoh data yang ditampilkan bisa di lihat di bawah ini dimana data tersebut merupakan respons JSON yang berisi informasi mengenai semua postingan yang telah diunggah ke server.
+
+<iframe 
+    src="https://raion-battlepass.elginbrian.com/api/posts" 
+    width="100%" 
+    height="240px" 
+    frameborder="0" 
+    style="border: none; margin-top: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</iframe>
+
+:::
+
+::: details Contoh kode yang harus kamu buat di sisi apps-nya 📱
+
+Di sisi apps, kamu perlu mengirimkan request ke server untuk mengambil data tersebut. Di contoh ini, kita menggunakan Retrofit (sebuah library di Android untuk membuat request HTTP) untuk meminta data. Berikut adalah contoh kode untuk mengirimkan request GET untuk mengambil daftar postingan dari server.
+
+```kotlin
+data class PostResponse(
+    val id: String,
+    val user_id: String,
+    val caption: String,
+    val image_url: String,
+    val created_at: String,
+    val updated_at: String
+)
+
+data class ApiResponse(
+    val status: String,
+    val data: List<PostResponse>
+)
+
+interface ApiService {
+    @GET("api/posts")
+    fun getAllPosts(): Call<ApiResponse>
+}
+
+private val retrofit = Retrofit.Builder()
+    .baseUrl("https://raion-battlepass.elginbrian.com/")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+private val apiService = retrofit.create(ApiService::class.java)
+
+```
+
+:::
 
 ## 📩 CARA KIRIM HASIL KARYA KAMU
 
-> **Tenang aja**, gak ada aturan yang ribet kok, yang penting hasil akhirnya adalah **aplikasi mobile**.  
-> Kalau sudah selesai, kirim karya terbaik kalian lewat form ini:
+> **Tenang aja**, gak ribet kok, yang penting hasil akhirnya adalah **aplikasi mobile**. Kalau sudah selesai, kirim karya terbaik kalian lewat form ini:
 
 [Form Pengumpulan Karya](#) _(link form menyusul ya!)_
 
@@ -117,8 +239,4 @@ Dokumentasi API yang lebih lengkap bisa kalian lihat di sini:
 Kalau ada pertanyaan atau butuh bantuan, jangan takut buat tanya ya!
 
 - **Elgin**: [0857-4980-6571](https://wa.me/6285749806571)
-- **Ovan**: (Kontak menyusul)
-
-## 🔗 LINK PENTING
-
-- [Github Battlepass Repository](https://github.com/elginbrian/Raion-Battlepass-2025)
+- **Ovan**: [0812-1675-2495](https://wa.me/6281216752495)
