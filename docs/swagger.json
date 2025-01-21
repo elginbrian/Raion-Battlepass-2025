@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a RESTful API for a simple social media application. It allows users to manage their posts, including creating, updating, and deleting posts, and provides authentication using JWT. The API is built using the Fiber framework and interacts with a PostgreSQL database.",
-        "title": "Fiber Starter API",
+        "title": "RAION BATTLEPASS API",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Elgin Brian Wahyu Bramadhika",
@@ -15,7 +15,7 @@
         },
         "version": "1.0"
     },
-    "host": "178.128.61.145:8084",
+    "host": "raion-battlepass.elginbrian.com",
     "basePath": "/",
     "paths": {
         "/api/auth/change-password": {

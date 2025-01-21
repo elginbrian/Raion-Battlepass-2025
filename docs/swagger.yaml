@@ -206,7 +206,7 @@ definitions:
       username:
         type: string
     type: object
-host: 178.128.61.145:8084
+host: raion-battlepass.elginbrian.com
 info:
   contact:
     email: elginbrian49@student.ub.ac.id
@@ -220,7 +220,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   termsOfService: http://swagger.io/terms/
-  title: Fiber Starter API
+  title: RAION BATTLEPASS API
   version: "1.0"
 paths:
   /api/auth/change-password:

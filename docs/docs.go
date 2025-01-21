@@ -1012,10 +1012,10 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "178.128.61.145:8084",
+	Host:             "raion-battlepass.elginbrian.com",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "Fiber Starter API",
+	Title:            "RAION BATTLEPASS API",
 	Description:      "This is a RESTful API for a simple social media application. It allows users to manage their posts, including creating, updating, and deleting posts, and provides authentication using JWT. The API is built using the Fiber framework and interacts with a PostgreSQL database.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
