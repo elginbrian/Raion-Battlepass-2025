@@ -1,10 +1,13 @@
 package routes
 
 import (
+	"raion-battlepass/config"
 	"raion-battlepass/internal/handler"
 	"raion-battlepass/internal/middleware"
 
+	"github.com/gofiber/adaptor/v2"
 	"github.com/gofiber/fiber/v2"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
 )
 
@@ -15,10 +18,15 @@ func SetupRoutes(
 	postHandler *handler.PostHandler,
 	jwtSecret string,
 ) {
+	config.InitMetrics()
+
+	app.Use(config.PrometheusMiddleware)
+
+	app.Get("/metrics", adaptor.HTTPHandler(promhttp.Handler()))
+
 	app.Get("/api", redirectToDocs)
 	app.Get("/docs", redirectToDocs)
 	app.Get("/docs/*", fiberSwagger.WrapHandler)
-
 
 	setupUserRoutes(app, userHandler)
 	setupAuthRoutes(app, authHandler, jwtSecret)
@@ -36,11 +44,11 @@ func setupSearchRoutes(app *fiber.App, userHandler *handler.UserHandler, postHan
 	searchGroup.Get("/posts", postHandler.SearchPosts)
 }
 
-func setupUserRoutes(app *fiber.App, handler *handler.UserHandler) { 
-    userGroup := app.Group("/api/users")
-    userGroup.Put("/", handler.UpdateUser)
-    userGroup.Get("/", handler.GetAllUsers)
-    userGroup.Get("/:id", handler.GetUserByID)
+func setupUserRoutes(app *fiber.App, handler *handler.UserHandler) {
+	userGroup := app.Group("/api/users")
+	userGroup.Put("/", handler.UpdateUser)
+	userGroup.Get("/", handler.GetAllUsers)
+	userGroup.Get("/:id", handler.GetUserByID)
 }
 
 func setupAuthRoutes(app *fiber.App, handler *handler.AuthHandler, jwtSecret string) {
