@@ -208,10 +208,7 @@ definitions:
     type: object
 host: raion-battlepass.elginbrian.com
 info:
-  contact:
-    email: elginbrian49@student.ub.ac.id
-    name: Elgin Brian Wahyu Bramadhika
-    url: https://wa.me/6285749806571
+  contact: {}
   description: This is a RESTful API for a simple social media application. It allows
     users to manage their posts, including creating, updating, and deleting posts,
     and provides authentication using JWT. The API is built using the Fiber framework

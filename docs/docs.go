@@ -10,11 +10,7 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "termsOfService": "http://swagger.io/terms/",
-        "contact": {
-            "name": "Elgin Brian Wahyu Bramadhika",
-            "url": "https://wa.me/6285749806571",
-            "email": "elginbrian49@student.ub.ac.id"
-        },
+        "contact": {},
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"

@@ -3,25 +3,28 @@
 layout: home
 
 hero:
-  name: "RAION BATTLEPASS 2025 🦁"
+  image:
+    src: /sticker.png
+    alt: sticker
+  name: "RAION BATTLEPASS 2025"
   tagline: "Mobile Developer Division"
   actions:
     - theme: brand
-      text: Dokumentasi API
+      text: --> Dokumentasi API
       link: https://raion-battlepass.elginbrian.com/docs
 ---
 
 <br>
 
-# Sebelum Mulai, Ngobrol Dulu Yok!
+# Sebelum Kita Mulai, Ngobrol Dulu Yuk!
 
-Halo teman-teman developer muda! 👋 Selamat datang di Raion Community! Sebelum kalian jadi bagian dari keluarga besar Raion, ada tantangan kecil yang harus diselesaikan, tapi tenang aja, kita bakal bantu kalian dengan cara yang gampang kok! 😊
+Halo para calon developer! 👋 Selamat datang di Raion Community! Sebelum kalian jadi bagian dari keluarga besar Raion, ada challenge kecil yang harus diselesaikan, tapi tenang aja, challengenya ngga susah kok! 😊
 
 Yuk, kita cari tahu bareng apa itu **Raion Battlepass 2025** dan gimana cara ikutnya!
 
 ## ⚔ KETENTUAN BATTLEPASS
 
-Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penting **bisa jalan** dan sesuai dengan spesifikasi yang kita tentukan. Ini dia yang perlu kalian siapin:
+Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penting **bisa jalan** dan sesuai dengan spesifikasi yang sudah kita tentukan. Ini dia yang perlu kalian siapin:
 
 1. **Aplikasi Harus Pakai API Raion Battlepass.**  
    API ini tuh kayak "otak" dari aplikasi kalian, yang membantu aplikasi buat ambil data, bikin post baru, ngedit, atau ngehapus post.
@@ -81,7 +84,7 @@ Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penti
 
 - **Get All Users:** Pengguna bisa lihat daftar semua orang di aplikasi.  
   **Endpoint:** `GET /api/users`
-- **Update User Information:** Pengguna bisa ganti nama, email, atau foto profil mereka.  
+- **Update User Information:** Pengguna bisa ganti nama profil mereka.  
   **Endpoint:** `PUT /api/users`
 - **Get User Details by ID:** Pengguna bisa lihat detail pengguna lain.  
    **Endpoint:** `GET /api/users/{id}`
@@ -91,9 +94,9 @@ Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penti
 <br>
 
 4. **Desainnya Ga Usah Aneh-aneh.**  
-   Gak perlu bagus-bagus desainnya, yang penting aplikasi kalian bisa jalan dan gampang dipakai. Tapi kalau UI/UX kalian keren, ada **bonus poin! 🌟**
+   Gak perlu bagus-bagus desainnya, yang penting aplikasi kalian bisa jalan dan gampang dipakai. Tapi kalau UI/UX kalian keren, bakal ada **bonus poin!**
 
-5. **Bonus Poin** untuk kalian yang bisa:
+5. **Bonus Poin** juga untuk kalian yang bisa:
    - Menyimpan data dari API ke database lokal (contoh: pakai Room di Android atau SQLite di Flutter/React Native).
    - Menulis kode yang mudah dibaca dan dimengerti orang lain.
    - Membuat **unit testing** (minimal 1 aja).
@@ -156,7 +159,7 @@ Jadi, meskipun aplikasi frontend (seperti di handphone) dan backend (seperti ser
 
 ::: details Contoh kode yang sudah kita disiapkan di backend ⚙
 
-Berikut adalah contoh kode di backend (menggunakan bahasa Go) yang menangani request untuk mengambil semua postingan (GetAllPosts). Function ini akan mengambil semua postingan dari database dan mengembalikannya dalam bentuk JSON.
+Sebagai contoh, di sini di backend kita udah nyiapin function buat menangani request untuk mengambil semua postingan (GetAllPosts). Function ini akan mengambil semua postingan dari database dan mengembalikannya dalam bentuk JSON.
 
 ```Go
 func (h *PostHandler) GetAllPosts(c *fiber.Ctx) error {
@@ -181,7 +184,7 @@ func (h *PostHandler) GetAllPosts(c *fiber.Ctx) error {
 }
 ```
 
-Kode di atas akan menampilkan data dari endpoint API https://raion-battlepass.elginbrian.com/api/posts. Contoh data yang ditampilkan bisa di lihat di bawah ini dimana data tersebut merupakan respons JSON yang berisi informasi mengenai semua postingan yang telah diunggah ke server.
+Function tersebut nantinya akan menampilkan data dari endpoint API https://raion-battlepass.elginbrian.com/api/posts. Contoh data yang ditampilkan bisa di lihat di bawah ini dimana data tersebut merupakan respons JSON yang berisi informasi mengenai semua postingan yang telah diunggah ke server.
 
 <iframe 
     src="https://raion-battlepass.elginbrian.com/api/posts" 
@@ -193,9 +196,9 @@ Kode di atas akan menampilkan data dari endpoint API https://raion-battlepass.el
 
 :::
 
-::: details Contoh kode yang harus kamu buat di sisi apps-nya 📱
+::: details Contoh kode yang harus kalian buat di sisi apps-nya 📱
 
-Di sisi apps, kamu perlu mengirimkan request ke server untuk mengambil data tersebut. Di contoh ini, kita menggunakan Retrofit (sebuah library di Android untuk membuat request HTTP) untuk meminta data. Berikut adalah contoh kode untuk mengirimkan request GET untuk mengambil daftar postingan dari server.
+Terus di sisi apps nya kalian perlu mengirimkan request ke server untuk mengambil data tersebut. Kalau di kode yang kita contohin di bawah ini, kita menggunakan Retrofit (sebuah library di Android untuk membuat request HTTP) untuk request GET untuk mengambil daftar postingan dari server.
 
 ```kotlin
 data class PostResponse(
@@ -226,13 +229,15 @@ private val apiService = retrofit.create(ApiService::class.java)
 
 ```
 
+Tapi, kalian dibebasin kok mau pakai library apa untuk bikin requestnya, ngga harus pakai Retrofit. Ga akan ngaruh ke penilaian juga.
+
 :::
 
 ## 📩 CARA KIRIM HASIL KARYA KAMU
 
-> **Tenang aja**, gak ribet kok, yang penting hasil akhirnya adalah **aplikasi mobile**. Kalau sudah selesai, kirim karya terbaik kalian lewat form ini:
+> Kalau sudah selesai, kirim karya terbaik kalian lewat form di bawah ini yaaa...
 
-[Form Pengumpulan Karya](#) _(link form menyusul ya!)_
+[Form Pengumpulan Karya](#)
 
 ## 📞 CONTACT PERSON!
 

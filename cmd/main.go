@@ -22,10 +22,6 @@ import (
 // @description This is a RESTful API for a simple social media application. It allows users to manage their posts, including creating, updating, and deleting posts, and provides authentication using JWT. The API is built using the Fiber framework and interacts with a PostgreSQL database.
 // @termsOfService http://swagger.io/terms/
 
-// @contact.name Elgin Brian Wahyu Bramadhika
-// @contact.email elginbrian49@student.ub.ac.id
-// @contact.url https://wa.me/6285749806571
-
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
