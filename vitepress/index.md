@@ -24,7 +24,7 @@ Yuk, kita cari tahu bareng apa itu **Raion Battlepass 2025** dan gimana cara iku
 
 ## ⚔ KETENTUAN BATTLEPASS
 
-Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penting **bisa jalan** dan sesuai dengan spesifikasi yang sudah kita tentukan. Ini dia yang perlu kalian siapin:
+Di battlepass ini, kalian diminta untuk bikin aplikasi sosial media **sederhana**, yang penting **bisa jalan** dan sesuai dengan spesifikasi yang sudah kita tentukan. Ini dia yang perlu kalian siapin:
 
 1. **Aplikasi Harus Pakai API Raion Battlepass.**  
    API ini tuh kayak "otak" dari aplikasi kalian, yang membantu aplikasi buat ambil data, bikin post baru, ngedit, atau ngehapus post.
@@ -40,6 +40,8 @@ Di battlepass ini, kalian diminta untuk bikin aplikasi **sederhana**, yang penti
 <br>
 
 3. **Fitur yang Harus Ada di dalam Aplikasi:**
+
+Layaknya sosial media beneran, aplikasi yang kalian buat nanti harus punya fitur-fitur berikut. Kita udah nyiapin API dari backend yang kita bikin, jadi tugas kalian sekarang adalah mengintegrasikan API tersebut ke dalam aplikasi yang kalian kembangin.
 
 ::: details Fitur Autentikasi 🔐
 
@@ -159,7 +161,7 @@ Jadi, meskipun aplikasi frontend (seperti di handphone) dan backend (seperti ser
 
 ::: details Contoh kode yang sudah kita disiapkan di backend ⚙
 
-Sebagai contoh, di sini di backend kita udah nyiapin function buat menangani request untuk mengambil semua postingan (GetAllPosts). Function ini akan mengambil semua postingan dari database dan mengembalikannya dalam bentuk JSON.
+Sebagai contoh, di backend kita udah nyiapin function buat menangani request untuk mengambil semua postingan (GetAllPosts). Function ini akan mengambil semua postingan dari database dan mengembalikannya dalam bentuk JSON.
 
 ```Go
 func (h *PostHandler) GetAllPosts(c *fiber.Ctx) error {
