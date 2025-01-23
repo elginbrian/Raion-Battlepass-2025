@@ -65,4 +65,3 @@ jobs:
             docker image prune
             docker-compose down
             docker-compose up --build -d
-            prometheus --config.file=prometheus.yaml --web.listen-address=":9091"
