@@ -235,11 +235,27 @@ Tapi, kalian dibebasin kok mau pakai library apa untuk bikin requestnya, ngga ha
 
 :::
 
-## 📩 CARA KIRIM HASIL KARYA KAMU
+## 📩 PENGUMPULAN KARYA
 
-> Kalau sudah selesai, kirim karya terbaik kalian lewat form di bawah ini yaaa...
+Kalau udah selesai, jangan lupa kirim karya terbaik kalian lewat form di bawah ini yaa! Good Luck and see you at Raion Community! 💪✨
 
-[Form Pengumpulan Karya](#)
+[Form Pengumpulan Karya](https://forms.gle/2EuGEa7vDSDpJBQt9)
+
+::: info Bentuk Pengumpulan
+
+Link folder Google Drive yang berisi:
+
+- File **.apk** aplikasi kalian 📱
+- Video **demo aplikasi** (maks. 2 menit) 🎥
+- Video **penjelasan kode program** (maks. 5 menit) 💻
+- Link **Repository GitHub** (bisa dimasukkan ke file .txt / .pdf) 📄
+
+  :::
+
+::: warning Note
+Jangan nge-update folder Google Drive atau repository GitHub kalian setelah melebihi deadline ya guys, nanti bisa-bisa diskualifikasi, hihihi... 😜😁
+
+:::
 
 ## 📞 CONTACT PERSON!
 
