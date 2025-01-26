@@ -2,6 +2,7 @@ package config
 
 import (
 	"net/http"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -54,7 +55,8 @@ var (
 		[]string{"method", "endpoint"},
 	)
 
-	once sync.Once
+	once      sync.Once
+	idPattern = regexp.MustCompile(`^[0-9a-fA-F-]+$`)
 )
 
 func InitMetrics() {
@@ -69,22 +71,28 @@ func InitMetrics() {
 
 func PrometheusMiddleware(c *fiber.Ctx) error {
 	start := time.Now()
+	normalizedEndpoint := normalizePath(c.Path())
 
-	httpConcurrentRequests.WithLabelValues(c.Method(), normalizePath(c.Path())).Inc()
+	httpConcurrentRequests.WithLabelValues(c.Method(), normalizedEndpoint).Inc()
+	defer httpConcurrentRequests.WithLabelValues(c.Method(), normalizedEndpoint).Dec()
 
-	recorder := &statusRecorder{statusCode: http.StatusOK}
-
-	err := c.Next()
+	recorder := &statusRecorder{Ctx: c, statusCode: http.StatusOK}
+	err := recorder.Ctx.Next()
 
 	duration := time.Since(start).Seconds()
-	normalizedEndpoint := normalizePath(c.Path())
+	if err != nil {
+		recorder.WriteHeader(fiber.StatusInternalServerError)
+	}
 
 	httpRequestsTotal.WithLabelValues(c.Method(), normalizedEndpoint, http.StatusText(recorder.statusCode)).Inc()
 	httpRequestDuration.WithLabelValues(c.Method(), normalizedEndpoint).Observe(duration)
-	httpRequestSize.WithLabelValues(c.Method(), normalizedEndpoint).Observe(float64(c.Request().Header.ContentLength()))
-	httpResponseSize.WithLabelValues(c.Method(), normalizedEndpoint).Observe(float64(recorder.size))
 
-	httpConcurrentRequests.WithLabelValues(c.Method(), normalizedEndpoint).Dec()
+	requestSize := float64(c.Request().Header.ContentLength())
+	if requestSize < 0 {
+		requestSize = float64(len(c.Request().Body()))
+	}
+	httpRequestSize.WithLabelValues(c.Method(), normalizedEndpoint).Observe(requestSize)
+	httpResponseSize.WithLabelValues(c.Method(), normalizedEndpoint).Observe(float64(recorder.size))
 
 	return err
 }
@@ -100,7 +108,7 @@ func normalizePath(path string) string {
 }
 
 func isID(segment string) bool {
-	return strings.Contains(segment, "-") || strings.ContainsAny(segment, "0123456789")
+	return idPattern.MatchString(segment)
 }
 
 type statusRecorder struct {

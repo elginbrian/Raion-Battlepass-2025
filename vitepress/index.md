@@ -7,7 +7,7 @@ hero:
     src: /sticker.png
     alt: sticker
   name: "RAION BATTLEPASS 2025"
-  tagline: "Mobile Developer Division"
+  tagline: "App Programmer"
   actions:
     - theme: brand
       text: --> Dokumentasi API
